@@ -5,8 +5,15 @@ import styles from './ContactForm.module.css';
 
 const ContactForm = ({ onAddContact }) => {
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required').min(3, 'Too short').max(50, 'Too long'),
-    number: Yup.string().required('Number is required').min(3, 'Too short').max(50, 'Too long'),
+    name: Yup.string()
+      .required('Name is required')
+      .min(3, 'Name is too short')
+      .max(50, 'Name is too long'),
+    number: Yup.string()
+      .required('Number is required')
+      .matches(/^[\d\+\-]+$/, 'Number must contain only digits, +, and -')
+      .min(3, 'Number is too short')
+      .max(50, 'Number is too long'),
   });
 
   return (
